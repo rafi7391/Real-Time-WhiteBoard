@@ -1,0 +1,136 @@
+/* Sticky Note Styles */
+.sticky-container {
+    position: absolute;
+    min-width: 200px;
+    max-width: 300px;
+    background-color: var(--primary-50);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    z-index: 30;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+}
+
+.sticky-container:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.sticky-header {
+    background-color: var(--primary-500);
+    padding: var(--space-2) var(--space-3);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+}
+
+.sticky-header h3 {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.sticky-close {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    transition: background-color 0.2s ease;
+}
+
+.sticky-close:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.sticky-content {
+    padding: var(--space-3);
+}
+
+.sticky-textarea {
+    width: 100%;
+    min-height: 120px;
+    resize: none;
+    border: none;
+    background-color: transparent;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--neutral-800);
+    outline: none;
+}
+
+/* Variations for sticky notes */
+.sticky-container.yellow {
+    background-color: #FEF9C3;
+}
+
+.sticky-container.yellow .sticky-header {
+    background-color: #FBBF24;
+}
+
+.sticky-container.blue {
+    background-color: var(--primary-50);
+}
+
+.sticky-container.blue .sticky-header {
+    background-color: var(--primary-500);
+}
+
+.sticky-container.green {
+    background-color: #DCFCE7;
+}
+
+.sticky-container.green .sticky-header {
+    background-color: var(--success-500);
+}
+
+.sticky-container.pink {
+    background-color: #FCE7F3;
+}
+
+.sticky-container.pink .sticky-header {
+    background-color: #EC4899;
+}
+
+/* Animation for new sticky notes */
+@keyframes stickyAppear {
+    0% { 
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    70% {
+        transform: scale(1.05);
+    }
+    100% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.sticky-container.new {
+    animation: stickyAppear 0.3s ease forwards;
+}
+
+/* Animation for minimizing sticky notes */
+@keyframes stickyMinimize {
+    0% { 
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% { 
+        transform: scale(0.8);
+        opacity: 0;
+    }
+}
+
+.sticky-container.minimize {
+    animation: stickyMinimize 0.3s ease forwards;
+}

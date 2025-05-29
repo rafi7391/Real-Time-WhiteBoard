@@ -1,0 +1,132 @@
+/* Image Container Styles */
+.image-container {
+    position: absolute;
+    z-index: 30;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: white;
+}
+
+.image-container:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.image-header {
+    background-color: var(--neutral-800);
+    padding: var(--space-2) var(--space-3);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+}
+
+.image-header h3 {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.image-close {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    transition: background-color 0.2s ease;
+}
+
+.image-close:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.image-content {
+    padding: var(--space-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-content img {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: var(--radius-sm);
+    object-fit: contain;
+}
+
+/* Animation for new images */
+@keyframes imageAppear {
+    0% { 
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    70% {
+        transform: scale(1.05);
+    }
+    100% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.image-container.new {
+    animation: imageAppear 0.3s ease forwards;
+}
+
+/* Animation for minimizing images */
+@keyframes imageMinimize {
+    0% { 
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% { 
+        transform: scale(0.8);
+        opacity: 0;
+    }
+}
+
+.image-container.minimize {
+    animation: imageMinimize 0.3s ease forwards;
+}
+
+/* Resize handlers */
+.resize-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: var(--primary-500);
+    border-radius: var(--radius-full);
+    z-index: 40;
+}
+
+.resize-handle.se {
+    bottom: -5px;
+    right: -5px;
+    cursor: nwse-resize;
+}
+
+.resize-handle.sw {
+    bottom: -5px;
+    left: -5px;
+    cursor: nesw-resize;
+}
+
+.resize-handle.ne {
+    top: -5px;
+    right: -5px;
+    cursor: nesw-resize;
+}
+
+.resize-handle.nw {
+    top: -5px;
+    left: -5px;
+    cursor: nwse-resize;
+}

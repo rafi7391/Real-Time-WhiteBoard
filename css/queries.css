@@ -1,0 +1,128 @@
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .app-header .logo h1 {
+        font-size: 1rem;
+    }
+    
+    .toolbar {
+        left: 0;
+        bottom: 0;
+        top: auto;
+        transform: none;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        border-radius: 0;
+        padding: var(--space-2) var(--space-4);
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .tool-group {
+        flex-direction: row;
+        border-bottom: none;
+        border-right: 1px solid var(--neutral-200);
+        padding: 0 var(--space-2);
+    }
+    
+    .tool-group:last-child {
+        border-right: none;
+    }
+    
+    .tool {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .tool-icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .tooltip {
+        left: 50%;
+        top: auto;
+        bottom: 100%;
+        transform: translateX(-50%);
+        margin-left: 0;
+        margin-bottom: var(--space-2);
+    }
+    
+    .color-picker {
+        left: var(--space-4);
+        top: auto;
+        bottom: 80px;
+    }
+    
+    .stroke-width-selector {
+        left: auto;
+        right: var(--space-4);
+        top: auto;
+        bottom: 80px;
+    }
+    
+    .hamburger-menu {
+        display: block;
+    }
+    
+    .header-actions {
+        display: none;
+    }
+    
+    .header-actions.active {
+        display: flex;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: white;
+        padding: var(--space-4);
+        box-shadow: var(--shadow-md);
+        border-radius: 0 0 var(--radius-md) var(--radius-md);
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .tool-group.zoom-tools {
+        display: none;
+    }
+    
+    .tool {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .tool-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .sticky-container {
+        min-width: 150px;
+        max-width: 250px;
+    }
+    
+    .image-content img {
+        max-height: 300px;
+    }
+}
+
+/* Print styles for downloading */
+@media print {
+    .app-header,
+    .toolbar,
+    .color-picker,
+    .stroke-width-selector {
+        display: none !important;
+    }
+    
+    body,
+    .app-container {
+        height: auto;
+        overflow: visible;
+    }
+    
+    .board {
+        box-shadow: none;
+    }
+}
