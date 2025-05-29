@@ -1,0 +1,70 @@
+/* Hamburger Menu Styles */
+.hamburger-menu {
+    display: none;
+    background: transparent;
+    border: none;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+    z-index: var(--z-modal);
+}
+
+.hamburger-inner {
+    width: 24px;
+    height: 2px;
+    background-color: var(--neutral-800);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: background-color 0.3s ease;
+}
+
+.hamburger-inner::before,
+.hamburger-inner::after {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background-color: var(--neutral-800);
+    position: absolute;
+    left: 0;
+    transition: transform 0.3s ease;
+}
+
+.hamburger-inner::before {
+    top: -8px;
+}
+
+.hamburger-inner::after {
+    bottom: -8px;
+}
+
+.hamburger-menu.active .hamburger-inner {
+    background-color: transparent;
+}
+
+.hamburger-menu.active .hamburger-inner::before {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+.hamburger-menu.active .hamburger-inner::after {
+    transform: rotate(-45deg);
+    bottom: 0;
+}
+
+/* Dark mode styles */
+body.dark-mode .hamburger-inner,
+body.dark-mode .hamburger-inner::before,
+body.dark-mode .hamburger-inner::after {
+    background-color: white;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+    .hamburger-menu {
+        display: block;
+    }
+}
