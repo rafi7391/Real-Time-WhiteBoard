@@ -1,82 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/sticky.css">
-    <link rel="stylesheet" href="./css/image.css">
-    <link rel="stylesheet" href="./css/hamburger.css">
-    <link rel="stylesheet" href="./css/queries.css">
-    <link rel="shortcut icon" href="./NewIcons/pep.png" type="image/x-icon">
+    <title>Collaborative Whiteboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sticky.css">
+    <link rel="stylesheet" href="css/image.css">
+    <link rel="stylesheet" href="css/queries.css">
+    <link rel="stylesheet" href="css/hamburger.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <!-- canvas Tag -->
-    <div class="combined">
-        <div class="toolBar">
-            <div class=" hamburger is-active" id="hamburger-1">
-                <span class="line"></span>
-                <span class="line"></span>
-                <span class="line"></span>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+                    <path d="M12 2l10 6.5v7L12 22 2 15.5v-7L12 2z"></path>
+                    <path d="M12 22v-6.5"></path>
+                    <path d="M22 8.5l-10 7-10-7"></path>
+                    <path d="M2 15.5l10-7 10 7"></path>
+                    <path d="M12 2v6.5"></path>
+                </svg>
+                <h1>Collaborative Whiteboard</h1>
             </div>
-            <div class="tool-panel add-animation">
-                <div class="tool active">
-                    <img src="NewIcons/Black_Pencil.svg" class="tool-img " id="pencil-img" alt=""
-                        onclick="handleLocaltoolChange('pencil')">
-                    <div class="tool-options pencil">
-                        <div class="pencil-size">
-                            <input type="range" id="pen-size" min="5" max="30" value="5"
-                                onchange="sizeChange(this.value)">
-                        </div>
-                        <div class="pencil-color">
-                            <div class="colors red" onclick="handleColorChange('red')"></div>
-                            <div class="colors green" onclick="handleColorChange('#55efc4')"></div>
-                            <div class="colors blue" onclick="handleColorChange('blue')"></div>
-                        </div>
+            <div class="header-actions">
+                <button id="download-btn" class="action-button" title="Download Board">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </button>
+                <div class="user-status">
+                    <div class="status-indicator online"></div>
+                    <span>Connected</span>
+                </div>
+            </div>
+            <button class="hamburger-menu">
+                <div class="hamburger-inner"></div>
+            </button>
+        </header>
+
+        <div class="toolbar">
+            <div class="tool-group">
+                <div class="tool active" id="pencil">
+                    <div class="tool-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                            <path d="M2 2l7.586 7.586"></path>
+                            <circle cx="11" cy="11" r="2"></circle>
+                        </svg>
                     </div>
+                    <span class="tooltip">Pencil</span>
                 </div>
-                <div class="tool eraser">
-                    <img src="NewIcons/Eraser.svg" alt="" class="tool-img" id="eraser-img"
-                        onclick="handleLocaltoolChange('eraser')">
-                    <div class="tool-options eraser">
-                        <div class="eraser-size">
-                            <input type="range" id="eraser-size" min="5" max=30 onchange="sizeChange(this.value)">
-                        </div>
+                <div class="tool" id="eraser">
+                    <div class="tool-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 20H7L3 16C2.5 15.5 2.5 14.5 3 14L13 4C13.5 3.5 14.5 3.5 15 4L21 10C21.5 10.5 21.5 11.5 21 12L11 22"></path>
+                        </svg>
                     </div>
+                    <span class="tooltip">Eraser</span>
                 </div>
-                <div class="tool">
-                    <img src="NewIcons/StickyNote.svg" alt="" onclick="handleLocaltoolChange('sticky')" class="tool-img">
+                <div class="tool" id="text">
+                    <div class="tool-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="4 7 4 4 20 4 20 7"></polyline>
+                            <line x1="9" y1="20" x2="15" y2="20"></line>
+                            <line x1="12" y1="4" x2="12" y2="20"></line>
+                        </svg>
+                    </div>
+                    <span class="tooltip">Text</span>
                 </div>
-                <div class="tool">
-                    <input type="file" name="" id="" class="input-img" accept="image/*">
-                    <img src="NewIcons/Photo.svg" alt="" class="upload-img tool-img"
-                        onclick="handleToolChange('upload')">
+            </div>
+
+            <div class="tool-group">
+                <div class="tool" id="sticky">
+                    <div class="tool-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="8" y1="13" x2="16" y2="13"></line>
+                            <line x1="8" y1="17" x2="16" y2="17"></line>
+                            <line x1="8" y1="9" x2="16" y2="9"></line>
+                        </svg>
+                    </div>
+                    <span class="tooltip">Add Note</span>
                 </div>
-                <div class="tool">
-                    <img src="./NewIcons/Download.svg" alt="" class="tool-img download-tool">
+                <div class="tool" id="image-upload">
+                    <div class="tool-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                    <span class="tooltip">Upload Image</span>
+                    <input type="file" id="file-input" accept="image/*" style="display: none;">
                 </div>
-                <div class="tool">
-                    <img src="./NewIcons/Undo.svg" alt="" class="tool-img undo">
+                <div class="tool" id="shape">
+                    <div class="tool-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        </svg>
+                    </div>
+                    <span class="tooltip">Shapes</span>
                 </div>
-                <div class="tool">
-                    <img src="./NewIcons/Redo.svg" alt="" class="tool-img redo">
+            </div>
+
+            <div class="tool-group">
+                <div class="tool" id="undo">
+                    <div class="tool-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 7v6h6"></path>
+                            <path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"></path>
+                        </svg>
+                    </div>
+                    <span class="tooltip">Undo</span>
+                </div>
+                <div class="tool" id="redo">
+                    <div class="tool-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 7v6h-6"></path>
+                            <path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"></path>
+                        </svg>
+                    </div>
+                    <span class="tooltip">Redo</span>
+                </div>
+            </div>
+
+            <div class="tool-group zoom-tools">
+                <div class="tool" id="zoom-in">
+                    <div class="tool-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            <line x1="11" y1="8" x2="11" y2="14"></line>
+                            <line x1="8" y1="11" x2="14" y2="11"></line>
+                        </svg>
+                    </div>
+                    <span class="tooltip">Zoom In</span>
+                </div>
+                <div class="tool" id="zoom-out">
+                    <div class="tool-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            <line x1="8" y1="11" x2="14" y2="11"></line>
+                        </svg>
+                    </div>
+                    <span class="tooltip">Zoom Out</span>
                 </div>
             </div>
         </div>
-        <!-- notes dom create -->
-        <canvas class="board">
-        </canvas>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" crossorigin></script>
-    <script src="./js/utilities/common.js"></script>
-    <script src="./js/tool.js"></script>
-    <script src="./js/sticky.js"></script>
-    <script src="./js/image.js"></script>
-    <script src="./js/draw.js"></script>
-    <script src="./js/reciever.js"></script>
-</body>
 
+        <div class="color-picker">
+            <div class="color-option active" data-color="black">
+                <div class="color-swatch" style="background-color: black;"></div>
+            </div>
+            <div class="color-option" data-color="blue">
+                <div class="color-swatch" style="background-color: #3B82F6;"></div>
+            </div>
+            <div class="color-option" data-color="red">
+                <div class="color-swatch" style="background-color: #EF4444;"></div>
+            </div>
+            <div class="color-option" data-color="green">
+                <div class="color-swatch" style="background-color: #10B981;"></div>
+            </div>
+            <div class="color-option" data-color="yellow">
+                <div class="color-swatch" style="background-color: #F59E0B;"></div>
+            </div>
+            <div class="color-option" data-color="purple">
+                <div class="color-swatch" style="background-color: #8B5CF6;"></div>
+            </div>
+        </div>
+
+        <div class="stroke-width-selector">
+            <div class="stroke-option active" data-width="1">
+                <div class="stroke-preview" style="height: 2px;"></div>
+            </div>
+            <div class="stroke-option" data-width="3">
+                <div class="stroke-preview" style="height: 4px;"></div>
+            </div>
+            <div class="stroke-option" data-width="5">
+                <div class="stroke-preview" style="height: 6px;"></div>
+            </div>
+        </div>
+
+        <canvas class="board"></canvas>
+    </div>
+
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+    <script src="js/utilities/common.js"></script>
+    <script src="js/tool.js"></script>
+    <script src="js/draw.js"></script>
+    <script src="js/shapes.js"></script>
+    <script src="js/sticky.js"></script>
+    <script src="js/image.js"></script>
+    <script src="js/reciever.js"></script>
+    <script src="js/app.js"></script>
+</body>
 </html>
